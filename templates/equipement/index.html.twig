@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Project index{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-5 mb-3"> Gestion des équipements </h2>
+        <div class="card">
+            <div class="card-header">
+                <a class="btn btn-outline-primary" href="{{ path('equipement_new') }}">
+                    Ajouter un équipement
+                </a>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <tr class="table-light">
+                        <th>Name</th>
+                        <th>Catégory</th>
+                        <th>Number</th>
+                        <th>Description</th>
+                        <th>Date Created</th>
+                        <th>Date Updated</th>
+                        <th width="240px">Action</th>
+                    </tr>
+                    {% for equipement in equipements %}
+                        <tr>
+                            <td>{{ equipement.name }}</td>
+                            <td>{{ equipement.category }}</td>
+                            <td>{{ equipement.number }}</td>
+                            <td>{{ equipement.description }}</td>
+                            <td>{{ equipement.createdAt ? equipement.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                            <td>{{ equipement.updatedAt ? equipement.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                            <td>
+                                <form method="post" action="{{ path('equipement_delete', {'id': equipement.id}) }}" onsubmit="return confirm('Vous voulez vraiment supprimer cet équipement?');">
+                                    <a
+                                            class="btn btn-outline-success"
+                                            href="{{ path('equipement_edit', {'id': equipement.id}) }}">
+                                        Edit
+                                    </a>
+
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ equipement.id) }}">
+                                    <button class="btn btn-outline-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

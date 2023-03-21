@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification équipement{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-5 mb-3">Modifier équipement</h2>
+        <div class="card">
+            <div class="card-header">
+                <a class="btn btn-outline-info float-right" href="{{ path('equipement_index') }}">
+                    Tous les équipements
+                </a>
+            </div>
+            <div class="card-body">
+                {% include 'equipement/_form.html.twig' with {'button_label': 'Modifier', 'button_color': 'btn-outline-success'}  %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
